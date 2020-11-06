@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="eec90e68-8828-4a53-93ff-58b0095dbdff" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ji9tFcxqbqk92sMGHHKUPCmfqL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/venv" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/venv" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.sb_5410_final">
+    <configuration name="Julia" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fractals" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/Julia.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RectSierpinski" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fractals" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/RectSierpinski.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sb_5410_final" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fractals" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/sb_5410_final.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="symcoloredsierpinski" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fractals" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/symcoloredsierpinski.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tricircle" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fractals" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/tricircle.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.sb_5410_final" />
+        <item itemvalue="Python.tricircle.ppy" />
+        <item itemvalue="Python.symcoloredsierpinski" />
+        <item itemvalue="Python.RectSierpinski" />
+        <item itemvalue="Python.Julia" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eec90e68-8828-4a53-93ff-58b0095dbdff" name="Default Changelist" comment="" />
+      <created>1604276257740</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604276257740</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1059" y="386" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604625593222">
+      <screen x="0" y="23" width="1920" height="1003" />
+    </state>
+    <state x="1059" y="386" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1920.1003@0.23.1920.1003" timestamp="1604625593222" />
+    <state width="483" height="466" key="DebuggerActiveHint" timestamp="1604629518179">
+      <screen x="0" y="23" width="1920" height="1010" />
+    </state>
+    <state width="483" height="466" key="DebuggerActiveHint/0.23.1920.1010@0.23.1920.1010" timestamp="1604629518179" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom" timestamp="1604687179328">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1001@0.23.1920.1001" timestamp="1604623446113" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1002@0.23.1920.1002" timestamp="1604628233823" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1003@0.23.1920.1003" timestamp="1604625978846" />
+    <state width="1554" height="245" key="GridCell.Tab.0.bottom/0.23.1920.1004@0.23.1920.1004" timestamp="1604426918076" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1005@0.23.1920.1005" timestamp="1604687179328" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1006@0.23.1920.1006" timestamp="1604640642836" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1007@0.23.1920.1007" timestamp="1604639846215" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1008@0.23.1920.1008" timestamp="1604622070545" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1009@0.23.1920.1009" timestamp="1604632934007" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.1010@0.23.1920.1010" timestamp="1604631759386" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.996@0.23.1920.996" timestamp="1604591325738" />
+    <state width="1554" height="244" key="GridCell.Tab.0.bottom/0.23.1920.997@0.23.1920.997" timestamp="1604623375891" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center" timestamp="1604687179328">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1001@0.23.1920.1001" timestamp="1604623446112" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1002@0.23.1920.1002" timestamp="1604628233822" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1003@0.23.1920.1003" timestamp="1604625978846" />
+    <state width="1554" height="245" key="GridCell.Tab.0.center/0.23.1920.1004@0.23.1920.1004" timestamp="1604426918076" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1005@0.23.1920.1005" timestamp="1604687179328" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1006@0.23.1920.1006" timestamp="1604640642836" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1007@0.23.1920.1007" timestamp="1604639846215" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1008@0.23.1920.1008" timestamp="1604622070544" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1009@0.23.1920.1009" timestamp="1604632934007" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.1010@0.23.1920.1010" timestamp="1604631759385" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.996@0.23.1920.996" timestamp="1604591325738" />
+    <state width="1554" height="244" key="GridCell.Tab.0.center/0.23.1920.997@0.23.1920.997" timestamp="1604623375890" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left" timestamp="1604687179327">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1001@0.23.1920.1001" timestamp="1604623446112" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1002@0.23.1920.1002" timestamp="1604628233822" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1003@0.23.1920.1003" timestamp="1604625978845" />
+    <state width="1554" height="245" key="GridCell.Tab.0.left/0.23.1920.1004@0.23.1920.1004" timestamp="1604426918075" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1005@0.23.1920.1005" timestamp="1604687179327" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1006@0.23.1920.1006" timestamp="1604640642835" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1007@0.23.1920.1007" timestamp="1604639846214" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1008@0.23.1920.1008" timestamp="1604622070544" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1009@0.23.1920.1009" timestamp="1604632934006" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.1010@0.23.1920.1010" timestamp="1604631759385" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.996@0.23.1920.996" timestamp="1604591325737" />
+    <state width="1554" height="244" key="GridCell.Tab.0.left/0.23.1920.997@0.23.1920.997" timestamp="1604623375889" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right" timestamp="1604687179328">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1001@0.23.1920.1001" timestamp="1604623446112" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1002@0.23.1920.1002" timestamp="1604628233823" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1003@0.23.1920.1003" timestamp="1604625978846" />
+    <state width="1554" height="245" key="GridCell.Tab.0.right/0.23.1920.1004@0.23.1920.1004" timestamp="1604426918076" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1005@0.23.1920.1005" timestamp="1604687179328" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1006@0.23.1920.1006" timestamp="1604640642836" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1007@0.23.1920.1007" timestamp="1604639846215" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1008@0.23.1920.1008" timestamp="1604622070544" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1009@0.23.1920.1009" timestamp="1604632934007" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.1010@0.23.1920.1010" timestamp="1604631759385" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.996@0.23.1920.996" timestamp="1604591325738" />
+    <state width="1554" height="244" key="GridCell.Tab.0.right/0.23.1920.997@0.23.1920.997" timestamp="1604623375890" />
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom" timestamp="1604682175442">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom/0.23.1920.1005@0.23.1920.1005" timestamp="1604682175442" />
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom/0.23.1920.1006@0.23.1920.1006" timestamp="1604680277356" />
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom/0.23.1920.1007@0.23.1920.1007" timestamp="1604434601912" />
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom/0.23.1920.1008@0.23.1920.1008" timestamp="1604428977662" />
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom/0.23.1920.1009@0.23.1920.1009" timestamp="1604629634413" />
+    <state width="1554" height="303" key="GridCell.Tab.1.bottom/0.23.1920.1010@0.23.1920.1010" timestamp="1604629580860" />
+    <state width="1554" height="303" key="GridCell.Tab.1.center" timestamp="1604682175442">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="303" key="GridCell.Tab.1.center/0.23.1920.1005@0.23.1920.1005" timestamp="1604682175442" />
+    <state width="1554" height="303" key="GridCell.Tab.1.center/0.23.1920.1006@0.23.1920.1006" timestamp="1604680277355" />
+    <state width="1554" height="303" key="GridCell.Tab.1.center/0.23.1920.1007@0.23.1920.1007" timestamp="1604434601911" />
+    <state width="1554" height="303" key="GridCell.Tab.1.center/0.23.1920.1008@0.23.1920.1008" timestamp="1604428977661" />
+    <state width="1554" height="303" key="GridCell.Tab.1.center/0.23.1920.1009@0.23.1920.1009" timestamp="1604629634413" />
+    <state width="1554" height="303" key="GridCell.Tab.1.center/0.23.1920.1010@0.23.1920.1010" timestamp="1604629580859" />
+    <state width="1554" height="303" key="GridCell.Tab.1.left" timestamp="1604682175441">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="303" key="GridCell.Tab.1.left/0.23.1920.1005@0.23.1920.1005" timestamp="1604682175441" />
+    <state width="1554" height="303" key="GridCell.Tab.1.left/0.23.1920.1006@0.23.1920.1006" timestamp="1604680277355" />
+    <state width="1554" height="303" key="GridCell.Tab.1.left/0.23.1920.1007@0.23.1920.1007" timestamp="1604434601911" />
+    <state width="1554" height="303" key="GridCell.Tab.1.left/0.23.1920.1008@0.23.1920.1008" timestamp="1604428977661" />
+    <state width="1554" height="303" key="GridCell.Tab.1.left/0.23.1920.1009@0.23.1920.1009" timestamp="1604629634413" />
+    <state width="1554" height="303" key="GridCell.Tab.1.left/0.23.1920.1010@0.23.1920.1010" timestamp="1604629580858" />
+    <state width="1554" height="303" key="GridCell.Tab.1.right" timestamp="1604682175442">
+      <screen x="0" y="23" width="1920" height="1005" />
+    </state>
+    <state width="1554" height="303" key="GridCell.Tab.1.right/0.23.1920.1005@0.23.1920.1005" timestamp="1604682175442" />
+    <state width="1554" height="303" key="GridCell.Tab.1.right/0.23.1920.1006@0.23.1920.1006" timestamp="1604680277355" />
+    <state width="1554" height="303" key="GridCell.Tab.1.right/0.23.1920.1007@0.23.1920.1007" timestamp="1604434601912" />
+    <state width="1554" height="303" key="GridCell.Tab.1.right/0.23.1920.1008@0.23.1920.1008" timestamp="1604428977662" />
+    <state width="1554" height="303" key="GridCell.Tab.1.right/0.23.1920.1009@0.23.1920.1009" timestamp="1604629634413" />
+    <state width="1554" height="303" key="GridCell.Tab.1.right/0.23.1920.1010@0.23.1920.1010" timestamp="1604629580859" />
+    <state x="641" y="147" key="SettingsEditor" timestamp="1604625561340">
+      <screen x="0" y="23" width="1920" height="1003" />
+    </state>
+    <state x="641" y="147" key="SettingsEditor/0.23.1920.1003@0.23.1920.1003" timestamp="1604625561340" />
+    <state x="641" y="148" key="SettingsEditor/0.23.1920.1005@0.23.1920.1005" timestamp="1604426096967" />
+    <state x="641" y="148" key="SettingsEditor/0.23.1920.1008@0.23.1920.1008" timestamp="1604621023928" />
+    <state x="641" y="147" key="SettingsEditor/0.23.1920.997@0.23.1920.997" timestamp="1604276381299" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/venv/fract.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/venv/sb_5410_final_bk02.py</url>
+          <line>396</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
