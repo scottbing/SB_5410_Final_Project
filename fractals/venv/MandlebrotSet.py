@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+# taken from: https://github.com/mboudour/PythonFractals/blob/master/RectasymmrcoloredSierpinski.py
+
 def get_iter(c:complex, thresh:int =4, max_steps:int =25) -> int:
     # Z_(n) = (Z_(n-1))^2 + c
     # Z_(0) = c

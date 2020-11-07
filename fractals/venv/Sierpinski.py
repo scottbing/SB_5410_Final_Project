@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pylab as plt
 
+# taken from: https://github.com/mboudour/PythonFractals/blob/master/RectasymmrcoloredSierpinski.py
 
 def SierpinskiTriangle(a, b, c, iterations):
     '''

@@ -11,11 +11,15 @@ import matplotlib.pyplot as plt
 from MandlebrotSet import *
 from Julia import *
 from RectSierpinski import *
+from Tricircle import *
+from Carpet import *
+from AnimateSierpinski import *
+from AnimateDragon import *
 import tkinter.font as font
-from SortFunctions import selectionSort
-from SortFunctions import quickSortIterative
-from SearchFunctions import binarySearchSub
-from PixelFunctions import *
+# from SortFunctions import selectionSort
+# from SortFunctions import quickSortIterative
+# from SearchFunctions import binarySearchSub
+# from PixelFunctions import *
 import numpy as np
 import colorsys
 import os
@@ -101,29 +105,27 @@ class Application(Frame):
         """Clears the screen"""
         # clear checkboxes
         self.is_mandlebrot.set(False)
-        self.is_reverse.set(False)
-        self.is_rotate.set(False)
-        self.is_reverse.set(False)
-        self.is_flip.set(False)
-        self.is_bright.set(False)
-        self.is_contrast.set(False)
-        self.is_sharpness.set(False)
+        self.is_julia.set(False)
+        self.is_cubistic.set(False)
+        self.is_symcolored.set(False)
+        self.is_tricircle.set(False)
+        self.is_carpet.set(False)
 
-        # clear text boxes
-        self.height_ent.delete(0, 'end')
-        self.width_ent.delete(0, 'end')
-        self.angle_ent.delete(0, 'end')
-
-        # clear lables
-        self.err2show.set("")
-
-        # deselect radio buttons
-        self.flipValue.set(None)
-
-        # initialize sliders
-        self.bright_value.set(1.0)
-        self.contrast_value.set(1.0)
-        self.sharpness_value.set(1.0)
+        # # clear text boxes
+        # self.height_ent.delete(0, 'end')
+        # self.width_ent.delete(0, 'end')
+        # self.angle_ent.delete(0, 'end')
+        #
+        # # clear labels
+        # self.err2show.set("")
+        #
+        # # deselect radio buttons
+        # self.flipValue.set(None)
+        #
+        # # initialize sliders
+        # self.bright_value.set(1.0)
+        # self.contrast_value.set(1.0)
+        # self.sharpness_value.set(1.0)
     #end def clearScreen(self):
 
     # function to be called when mouse is clicked
@@ -193,13 +195,13 @@ class Application(Frame):
         # process mandlebrot set
         self.is_mandlebrot = BooleanVar()
         Checkbutton(self,
-                    text="Mandelbrot",
+                    text="Mandelbrot Set",
                     variable=self.is_mandlebrot
-                    ).grid(row=2, column=0, sticky=W)
+                    ).grid(row=2, column=0,  sticky=W)
 
         Label(self,
               text="Theme:"
-              ).grid(row=2, column=0, sticky=E)
+              ).grid(row=2, column=1, sticky=W)
 
         self.theme = StringVar()
         self.themes = ttk.Combobox(self,
@@ -208,7 +210,7 @@ class Application(Frame):
 
         # Adding combobox drop down list
         self.themes['values'] = ('ocean',
-                            'twightlight',
+                            'twilight',
                             'inferno',
                             'Purples_r',
                             'prism',
@@ -220,7 +222,7 @@ class Application(Frame):
                             'nipy_spectral',
                             'Pastell')
 
-        self.themes.grid(row=2, column=1, sticky=W)
+        self.themes.grid(row=2, column=1, padx=57, sticky=W)
 
         # Shows ocean as a default value
         self.themes.current(0)
@@ -253,12 +255,16 @@ class Application(Frame):
                             #variable=self.iterations
                             ).grid(row=4, column=1, sticky=E)
 
-        # Reverse image button
+        # Process Randomly Colored Sierpinski Triangle
         self.is_symcolored = BooleanVar()
         Checkbutton(self,
-                    text="Randomly Colored Sierpinski Triangle",
+                    text="Sierpinski Triangle",
                     variable=self.is_symcolored
                     ).grid(row=5, column=0, sticky=W)
+
+        Label(self,
+              text="Iterations:",
+              ).grid(row=5, column=1, padx=157, sticky=W)
 
         self.itersym = IntVar()
         self.itersym.set(5)
@@ -270,123 +276,107 @@ class Application(Frame):
                             # variable=self.iterations
                             ).grid(row=5, column=1, sticky=E)
 
-        # create a CheckBox and text entry for a Brightness
-        # Brightness setting button
-        self.is_bright = BooleanVar()
+        # process tricircle
+        self.is_tricircle = BooleanVar()
         Checkbutton(self,
-                    text="Brightness",
-                    variable=self.is_bright
+                    text="Tricircle",
+                    variable=self.is_tricircle
                     ).grid(row=7, column=0, sticky=W)
 
-        self.bright_value = DoubleVar()
-        Scale(self,
-              variable=self.bright_value,
-              from_ = .5, to = 2,
-              resolution=0.5,
-              orient = HORIZONTAL
-              ).grid(row=7, column=0, sticky=E)
-        self.bright_value.set(1.0)
 
-        # create a filler
-        Label(self,
-              text="1 - original; gt. 1 - Bright; lt. 1 Dark"
-              ).grid(row=7, column=1, sticky=W)
 
-        # create a CheckBox and text entry for a Contrast
-        # Contrast setting button
-        self.is_contrast = BooleanVar()
+        # Process carpet
+        self.is_carpet = BooleanVar()
         Checkbutton(self,
-                    text="Contrast",
-                    variable=self.is_contrast
+                    text="Carpet",
+                    variable=self.is_carpet
                     ).grid(row=8, column=0, sticky=W)
-
-        self.contrast_value = DoubleVar()
-        Scale(self,
-              variable=self.contrast_value,
-              from_=.5, to=2,
-              resolution=0.5,
-              orient=HORIZONTAL
-              ).grid(row=8, column=0, sticky=E)
-        self.contrast_value.set(1.0)
-
-        # create a filler
-        Label(self,
-              text="1 - original; gt. 1 - more Contrast; lt. 1 less Contrast"
-              ).grid(row=8, column=1, sticky=W)
-
-        # create a CheckBox and text entry for a Sharpness
-        # Sharpness setting button
-        self.is_sharpness = BooleanVar()
-        Checkbutton(self,
-                    text="Sharpness",
-                    variable=self.is_sharpness
-                    ).grid(row=9, column=0, sticky=W)
-
-        self.sharpness_value = DoubleVar()
-        Scale(self,
-              variable=self.sharpness_value,
-              from_=.5, to=2,
-              resolution=0.5,
-              orient=HORIZONTAL
-              ).grid(row=9, column=0, sticky=E)
-        self.sharpness_value.set(1.0)
-
-        # create a filler
-        Label(self,
-              text="1 - original; gt. 1 - more Sharpness; lt. 1 less Sharpness"
-              ).grid(row=9, column=1, sticky=W)
-
-        btnFont = font.Font(weight="bold")
-        btnFont = font.Font(size=19)
-
-        # create a the sort pixels button
-        self.sort_btn = Button(self,
-                                   text="Sort Pixels",
-                                   command=self.sortPixels,
-                                   # bg='blue',
-                                   # fg='#ffffff',
-                                   highlightbackground='#3E4149',
-                                   ).grid(row=10, column=0, sticky=W, padx=20, pady=5)
-
-        # create a the scramble pixels button
-        self.scramble_btn = Button(self,
-                               text="Scramble",
-                               command=self.scramblePixels,
-                               # bg='blue',
-                               # fg='#ffffff',
-                               highlightbackground='#3E4149',
-                               ).grid(row=11, column=0, sticky=W, padx=20, pady=5)
-
-        # create a thumbnail image button
-        self.thumbnail_btn = Button(self,
-                                    text="Thumbnail",
-                                    command=self.thumbnail,
-                                    # bg='blue',
-                                    # fg='#ffffff',
-                                    highlightbackground='#3E4149',
-                                    ).grid(row=13, column=0, sticky=W, padx=20, pady=5)
-
-        # create a watermark on an image button
-        self.watermark_btn = Button(self,
-                                    text="Watermark",
-                                    command=self.watermark,
-                                    highlightbackground='#3E4149',
-                                    ).grid(row=14, column=0, sticky=W, padx=20, pady=5)
-
 
         # create a colorized image button
         self.colorize_btn = Button(self,
-                                   text="Adjust Tolerance",
+                                   text="Select Colors",
                                    command=self.colorize,
-                                   highlightbackground='#3E4149',
-                                   ).grid(row=15, column=0, sticky=W, padx=20, pady=5)
+                                   highlightbackground='#2E4149',
+                                   ).grid(row=8, column=1, sticky=W)
 
-        # create a colorized image button
-        self.capture_btn = Button(self,
-                                   text="Crop Image",
-                                   command=self.capture,
-                                   highlightbackground='#3E4149',
-                                   ).grid(row=16, column=0, sticky=W, padx=20, pady=5)
+        Label(self,
+              text="Iterations:",
+              ).grid(row=8, column=1, padx=157, sticky=W)
+
+        self.itercarp = IntVar()
+        self.itercarp.set(5)
+        self.iter_sp_carp = Spinbox(self,
+                            from_=1,
+                            to=7,
+                            width=3,
+                            textvariable=self.itercarp
+                            ).grid(row=8, column=1, sticky=E)
+
+        animFont = font.Font(weight="bold")
+        animFont = font.Font(size=21)
+
+        Label(self,
+              text="Animations:",
+              font=animFont
+              ).grid(row=9, column=0, columnspan=2, sticky=W)
+
+
+        # create a the animate sierpinski button
+        self.sierpinski_btn = Button(self,
+                                     text="Sierpinski",
+                                     command=self.anim_sierpinski,
+                                     highlightbackground='#3E4149',
+                                     ).grid(row=10, column=0, sticky=W, padx=20, pady=5)
+
+        # process animated sierpinski color
+        self.color_sierpinski_btn = Button(self,
+                                   text="Select Colors",
+                                   command=self.colorize,
+                                   highlightbackground='#2E4149',
+                                   ).grid(row=10, column=1, sticky=W)
+
+        Label(self,
+              text="Iterations:",
+              ).grid(row=10, column=1, padx=157, sticky=W)
+
+        self.itersier = IntVar()
+        self.itersier.set(5)
+        self.iter_sp_sier = Spinbox(self,
+                            from_=1,
+                            to=8,
+                            width=3,
+                            textvariable=self.itersier
+                            ).grid(row=10, column=1, sticky=E)
+
+        # create a the animate dragon button
+        self.dragon_btn = Button(self,
+                                 text="Dragon",
+                                 command=self.anim_dragon,
+                                 highlightbackground='#3E4149',
+                                 ).grid(row=11, column=0, sticky=W, padx=20, pady=5)
+
+        # process animated dragon color
+        self.color_dragon_btn = Button(self,
+                                       text="Select Color",
+                                       command=self.colorize,
+                                       highlightbackground='#2E4149',
+                                       ).grid(row=11, column=1, sticky=W)
+
+        Label(self,
+              text="Iterations:",
+              ).grid(row=11, column=1, padx=157, sticky=W)
+
+        self.iterdrgn = IntVar()
+        self.iterdrgn.set(5)
+        self.iter_sp_drgn = Spinbox(self,
+                                    from_=1,
+                                    to=8,
+                                    width=3,
+                                    textvariable=self.iterdrgn
+                                    ).grid(row=11, column=1, sticky=E)
+
+        btnFont = font.Font(weight="bold")
+        btnFont = font.Font(size=19)
 
         # create a filler
         Label(self,
@@ -434,136 +424,6 @@ class Application(Frame):
             return False
 
     # end def is_number(n):
-
-    def capture(self):
-        """Creates image from selected pixel range
-        The Crop Image routine"""
-        # get current image
-        im = Image.open(self.fileName)
-        pixels = im.load()
-        #pixels = storePixels(im)  # store rgb pixels
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        print("len(self.selected_pixels): ", len(self.selected_pixels))
-
-        # grab the selected pixes
-        if len(self.selected_pixels) >= 1:
-            pixel1 = self.selected_pixels[len(self.selected_pixels)-1]
-            print("First pixel: ", pixel1)
-            pixel2 = self.selected_pixels[len(self.selected_pixels)-2]
-            print("Second pixel: ", pixel2)
-
-            x1, y1 = pixel1
-            print("x1: ", x1)
-            print("y1: ", y1)
-
-            x2, y2 = pixel2
-            print("x2: ", x2)
-            print("y2: ", y2)
-
-            size = (abs(x1-x2), abs(y1-y2))
-            print("Image Size = ", size)
-
-            # Create output image
-            out = Image.new("RGB", size)
-            draw = ImageDraw.Draw(out)
-
-            print("out.width: ", out.width)
-            print("out.height: ", out.height)
-
-            # flip the x's
-            if x1 < x2:
-                tmpx = x1
-                x1 = x2
-                x2 = tmpx
-
-
-            # Cropped image of above dimension
-            # (It will not change orginal image)
-            out = im.crop((x2, y2, x1, y1))
-
-            # Shows the image in image viewer
-            out.show()
-
-            # save reversed image
-            out.save('new_image-' + base)
-            print("file new_image-" + base + " saved")
-            self.clearScreen()
-
-    #end def capture(self):
-
-    def watermark(self):
-        # Taken from https://medium.com/analytics-vidhya/some-interesting-tricks-in-python-pillow-8fe5acce6084
-        """mark the picture with a watermark"""
-        # open image to apply watermark to
-        im = Image.open(self.fileName)
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        im.convert("RGB")
-        # get image size
-        im_width, im_height = im.size
-        # 5 by 4 water mark grid
-        wm_size = (int(im_width * 0.20), int(im_height * 0.25))
-        wm_txt = Image.new("RGBA", wm_size, (255, 255, 255, 0))
-        # set text size, 1:40 of the image width
-        font_size = int(im_width / 40)
-        # load font e.g. gotham-bold.ttf
-        font = ImageFont.truetype('/Library/Fonts/Arial.ttf', 20)
-
-        d = ImageDraw.Draw(wm_txt)
-        wm_text = "Scott Bing"
-        # centralize text
-        left = (wm_size[0] - font.getsize(wm_text)[0]) / 2
-        top = (wm_size[1] - font.getsize(wm_text)[1]) / 2
-        # RGBA(0, 0, 0, alpha) is black
-        # alpha channel specifies the opacity for a colour
-        alpha = 75
-        # write text on blank wm_text image
-        d.text((left, top), wm_text, fill=(0, 0, 0, alpha), font=font)
-        # uncomment to rotate watermark text
-        # wm_txt = wm_txt.rotate(15,  expand=1)
-        # wm_txt = wm_txt.resize(wm_size, Image.ANTIALIAS)
-        for i in range(0, im_width, wm_txt.size[0]):
-            for j in range(0, im_height, wm_txt.size[1]):
-                im.paste(wm_txt, (i, j), wm_txt)
-
-        im.save('watermark-' + base)
-        print("file watermark-" + base + " saved")
-
-        self.clearScreen()
-
-    #end def watermark(self):
-
-    def thumbnail(self):
-        # Taken from https://medium.com/analytics-vidhya/some-interesting-tricks-in-python-pillow-8fe5acce6084
-        """make a thumbnail from the originally user
-            selected image"""
-        im = Image.open(self.fileName)
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        # set the maximum width and height for the thumbnail
-        max_thumbnail_size = (50, 50)
-        # applying size for thumbnail
-        im.thumbnail(max_thumbnail_size)
-        # creating thumbnail
-        im.save('thumbnail-' + base)
-        print("file thumbnail-" + base + " saved")
-
-        self.clearScreen()
-
-    # show image in preview
-        im.show()
-
-    #end of def thumbnail(self):
 
     def colorize(self):
         '''process tolerance'''
@@ -647,319 +507,87 @@ class Application(Frame):
     def processColorize(self):
         """ Adds a user selected color to the image """
         # read each pixel into memory as the image object im
-        err = False
-        im = Image.open(self.fileName)
-        pixels = im.load()
-        #pixels = storePixels(im)
-        print("stored")
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-
-        # Create output image
-        out = Image.new("RGB", im.size)
-        draw = ImageDraw.Draw(out)
+        # err = False
+        # im = Image.open(self.fileName)
+        # pixels = im.load()
+        # #pixels = storePixels(im)
+        # print("stored")
+        # # manipulate file name for save process
+        # baseFile = self.fileName.split('/')
+        # length = len(baseFile)
+        # base = baseFile[len(baseFile) - 1]
+        # print(baseFile[len(baseFile) - 1])
+        #
+        # # Create output image
+        # out = Image.new("RGB", im.size)
+        # draw = ImageDraw.Draw(out)
 
         # get select color
         red = (int(self.red_value.get()))
         green = (int(self.green_value.get()))
         blue = (int(self.blue_value.get()))
-        color_to_change = (red, green, blue)
 
-        # check threshold
-        try:
-            t = int(self.tolerance_ent.get())
-        except Exception as e:
-            err = True
-            self.cerr2show.set("Colorize Tolerance value is missing or invalid")
+        #convert RGB color to hexadecimal value
+        self.color_to_change = '#{:02x}{:02x}{:02x}'.format(red, green, blue)
 
-        if err == False:
-            # get tolerance value
-            threshold = (int(self.tolerance_ent.get()))
+        self.colorFrame.destroy()
 
-            # Generate image
-            for x in range(im.width):
-                for y in range(im.height):
-                    r, g, b = pixels[x, y]
-                    if self.distance2(color_to_change, pixels[x, y]) < threshold ** 2:
-                        r = int(r * (red/255))
-                        g = int(g * (green/255))
-                        b = int(b * (blue/255))
-                    draw.point((x, y), (r, g, b))
-
-            out.save("output.png")
-            out.save('colorized-' + base)
-            print("file colorized-" + base + " saved")
-
-            self.colorFrame.destroy()
+        #return self.color_to_change
 
         #end def processColorize(self):
 
-    # taken from here: https://ehmatthes.github.io/pcc_2e/beyond_pcc/pillow/#examining-multiple-pixels
-    def scramblePixels(self):
-        """ Randomly scrambles the pixel values """
-        # read each pixel into memory as the image object im
-        im = Image.open(self.fileName)
-        pixels = storePixels(im)
-        print("stored")
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        # Taken from:
-        # https: // stackoverflow.com / questions / 36468530 / changing - pixel - color - value - in -pil
-        rr, gg, bb = im.split()
-        rr = rr.point(lambda p: 0 if p == 0 else np.random.randint(256))
-        gg = gg.point(lambda p: 0 if p == 0 else np.random.randint(256))
-        bb = bb.point(lambda p: 0 if p == 0 else np.random.randint(256))
-        out_img = Image.merge("RGB", (rr, gg, bb))
-        out_img.getextrema()
-        out_img.show()
+    def anim_dragon(self):
+        # Global parameters
 
-        out_img.save('scrambled-' + base)
-        print("sorted-" + base + " saved")
+        width = 450
 
-    #end def scramblePixels(self):
+        title = "TerDragon-Curve"
+        axiom = "F"
+        rules = {"F": "F-F+F"}
+        iterations = 7  # TOP: 10
+        angle = 120
+        c = 'purple'
 
-    def sortPixels(self):
-        """ Sorts the image pixels and writes
-            out a new image """
-        # read each pixel into memory as the image object im
-        im = Image.open(self.fileName)
-        pixels = storePixels(im)
-        print("stored")
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
+        offset_angle = 90 - 30 * iterations
+        correction_angle = 180 - 30 * iterations
 
-    #end def sortPixels(self):
+        animate_dragon(iterations, axiom, rules, angle, correction_angle=correction_angle,
+             offset_angle=offset_angle, width=width, height=width)
 
-        ### sort copy of pixels ###
-        sorted_pixels = pixels.copy()
-        quickSortIterative(sorted_pixels, 0, len(sorted_pixels) - 1, comparePixels)
-        print("sorted")
-        sorted_im = pixelsToImage(im, sorted_pixels)
-        sorted_im.save('sorted-' + base)
-        print("sorted-" + base + " saved")
+    def anim_sierpinski(self):
+        # Global parameters
 
-    def brightness(self):
-        """brightens or darkens the image"""
-        # get current image
-        im = Image.open(self.fileName)
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
+        width = 450
 
-        # image brightness enhancer
-        enhancer = ImageEnhance.Brightness(im)
-        factor = (float(self.bright_value.get()))
-        im_out = enhancer.enhance(factor)
-        if factor == 1:
-            im_out.save('brt_original-' + base)
-            print("file brt_original-" + base + " saved")
-        elif factor < 1:
-            im_out.save('brt_darkened-' + base)
-            print("file brt_darkened-" + base + " saved")
-        elif factor > 1:
-            im_out.save('brt_brightened-' + base)
-            print("file brt_brightened-" + base + " saved")
+        title = "Siepinski-Sieve"
+        axiom = "FXF--FF--FF"
+        rules = {"F": "FF", "X": "--FXF++FXF++FXF--"}
+        iterations = self.itersier.get()  # TOP: 8
+        angle = 60
+
+        animate_sierpinski(iterations, axiom, rules, angle, aspect_ratio=1, width=width, color=self.color_to_change)
+
+    def carpet(self):
+        a = np.array([0, 0])
+        b = np.array([3, 0])
+        c = np.array([3, 3])
+        d = np.array([0, 3])
+
+        iterations = self.itercarp.get()
+
+        plt.figure(figsize=(20, 20))
+
+        plt.fill([a[0], b[0], c[0], d[0]], [a[1], b[1], c[1], d[1]], color='maroon', alpha=0.8)
+        # plt.hold(True)
+
+        carpet(a, b, c, d, iterations)
+
+        plt.title("Randomly Colored Sierpinski Carpet (iterations = 4)")
+        plt.axis('equal')
+        plt.axis('off')
+        plt.show()
         self.clearScreen()
-
-    #end def brightness(self):
-
-    def constrast(self):
-        """sets the contrast factor for the image"""
-        # get current image
-        im = Image.open(self.fileName)
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-
-        # image contrast enhancer
-        enhancer = ImageEnhance.Contrast(im)
-        factor = (float(self.contrast_value.get()))
-        im_out = enhancer.enhance(factor)
-        if factor == 1:
-            im_out.save('ctr_original-' + base)
-            print("file ctr_original-" + base + " saved")
-        elif factor < 1:
-            im_out.save('ctr_less-' + base)
-            print("file ctr_less-" + base + " saved")
-        elif factor > 1:
-            im_out.save('ctr_more-' + base)
-            print("file ctr_more-" + base + " saved")
-        self.clearScreen()
-
-    #end def constrast(self):
-
-    def sharpness(self):
-        """sets the sharpness factor for the image"""
-        # get current image
-        im = Image.open(self.fileName)
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-
-        # image contrast enhancer
-        enhancer = ImageEnhance.Sharpness(im)
-        factor = (float(self.sharpness_value.get()))
-        im_out = enhancer.enhance(factor)
-        if factor == 1:
-            im_out.save('shp_original-' + base)
-            print("file shp_original-" + base + " saved")
-        elif factor < 1:
-            im_out.save('shp_less-' + base)
-            print("file shp_less-" + base + " saved")
-        elif factor > 1:
-            im_out.save('shp_more-' + base)
-            print("file shp_more-" + base + " saved")
-        self.clearScreen()
-
-    #end def sharpness(self):
-
-    # reverse the image
-    def reverse(self):
-        """converts an image ot grayscale"""
-        # get current image
-        im = Image.open(self.fileName)
-        pixels = storePixels(im)  # store rgb pixels
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        grayScale(im, pixels)  # grayscale pixels in place
-        # save reversed image
-        im.save('reverse-' + base)
-        print("file reverse-" + base + " saved")
-        self.clearScreen()
-
-    #def reverse(self):
-
-    # flip image on vertical axis
-    def flip_vertical(self):
-        """Flips an image vertically"""
-        # get current image
-        im = Image.open(self.fileName)
-        # manipulate file name for save process
-        baseFile = self.fileName.split('/')
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        # flip image vertiical
-        out = im.transpose(Image.FLIP_TOP_BOTTOM)
-        # save flipped image
-        out.save('fl_vertical-' + base)
-        print("file fl_vertical-" + base + " saved")
-        self.clearScreen()
-
-    #end def flip_vertical(self):
-
-    # flip image on horizontal axis
-    def flip_horizontal(self):
-        """Flips an image horizontally"""
-        # get current image
-        im = Image.open(self.fileName)
-        baseFile = self.fileName.split('/')
-        # manipulate file name for save process
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        # flip image horizontal
-        out = im.transpose(Image.FLIP_LEFT_RIGHT)
-        # save flipped image
-        out.save('fl_horizontal-' + base)
-        print("file fl_horizontal-" + base + " saved")
-        self.clearScreen()
-
-    #end def flip_horizontal(self):
-
-    # rotate an image
-    def rotate(self):
-        """Rotates and image based on a given angle
-            0 - 360 degrees"""
-        err = False
-        # get current image
-        im = Image.open(self.fileName)
-        baseFile = self.fileName.split('/')
-        # manipulate file name for save process
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-
-        # check angle
-        try:
-            a = int(self.angle_ent.get())
-        except Exception as e:
-            err = True
-            self.err2show.set("Rotate Angle value is missing or invalid")
-
-        if err == False:
-            # get angle
-            angle = (int(self.angle_ent.get()))
-            print("angle: ", angle)
-            self.angle_ent['text'] = ""
-            root.update()
-            # rotate image
-            out = im.rotate(angle)
-            # save rotated image
-            out.save('rotated-' + base)
-            print("file rotated-" + base + " saved")
-            self.clearScreen()
-
-    #end def rotate(self):
-
-    # resize an image
-    def resize(self):
-        """Resizes an image using dimensions
-            entered by the user"""
-        err = False
-        # get current image
-        im = Image.open(self.fileName)
-        baseFile = self.fileName.split('/')
-        # manipulate file name for save process
-        length = len(baseFile)
-        base = baseFile[len(baseFile) - 1]
-        print(baseFile[len(baseFile) - 1])
-        # if type(self.height_ent.get()) is not int:
-        #     raise TypeError("Height either left blank or invalid")
-
-        # check height
-        try:
-            h = int(self.height_ent.get())
-        except Exception as e:
-            err = True
-            self.err2show.set("Resize Height value is missing or invalid")
-
-        # check width
-        try:
-            w = int(self.width_ent.get())
-        except Exception as e:
-            err = True
-            self.err2show.set("Resize Width value is missing or invalid")
-
-        if err == False:
-            size = (h, w)
-            print("size: ", size)
-            # resize image
-            out = im.resize(size)
-            # save resized image
-            out.save('resized-' + base)
-            print("file resized-" + base + " saved")
-            self.clearScreen()
-
-    #end def resize(self):
+    #end def carpet(self):
 
     def tricircle(self):
 
@@ -975,8 +603,11 @@ class Application(Frame):
 
         draw_triangle_fractal(ax, triangle, radius_limit)
 
+        plt.title(
+            "Randomly Colored Sierpinski Triangle With Embedded Circles")
         plt.axis('off')
         plt.show()
+        self.clearScreen()
     #end def tricircle(self):
 
     def symcoloredsierpinski(self):
@@ -996,6 +627,7 @@ class Application(Frame):
         plt.axis('equal')
         plt.axis('off')
         plt.show()
+        self.clearScreen()
     #end def symcoloredsierpinski(self):
 
     def rectSierpinski(self):
@@ -1020,7 +652,7 @@ class Application(Frame):
         k2 = 4
         k2r = 6
 
-        fig, ax = plt.subplots(1, figsize=(30, 30))
+        fig, ax = plt.subplots(1, figsize=(15, 15))
 
         iter = self.itercube.get()
         Sierpinski(a1, b1, c1, k1, iteration=iter)
@@ -1032,12 +664,13 @@ class Application(Frame):
         Sierpinski(a2r, b2r, c2r, k2r, iteration=iter)
         # plt.hold(True)
 
-        plt.title("A Cubistic Sierpinski Synthesis (iterations = " + str(iter) + ")")
+        plt.title("Randomly Colored Cubistic Sierpinski Synthesis (iterations = " + str(iter) + ")")
         ax.set_xlim(0, 1)
         ax.set_ylim(0, 1)
         plt.axis('equal')
         plt.axis('off')
         plt.show()
+        self.clearScreen()
     #end def rectSierpinski(self):
 
     def manderbrot(self):
@@ -1047,6 +680,7 @@ class Application(Frame):
         plt.imshow(img, cmap=self.theme.get())
         plt.axis("off")
         plt.show()
+        self.clearScreen()
     #end def manderbrot(self):
 
     # process user selections
@@ -1057,18 +691,16 @@ class Application(Frame):
             self.manderbrot()
         elif self.is_julia.get() == True:
             julia()
+            self.clearScreen()
         elif self.is_cubistic.get() == True:
             self.rectSierpinski()
         elif self.is_symcolored.get() == True:
             self.symcoloredsierpinski()
-        elif self.is_bright.get() == True:
-            self.brightness()
-        elif self.is_contrast.get() == True:
-            self.constrast()
-        elif self.is_sharpness.get() == True:
-            self.sharpness()
-
-#end def processSelections(self):
+        elif self.is_tricircle.get() == True:
+            self.tricircle()
+        elif self.is_carpet.get() == True:
+            self.carpet()
+    #end def processSelections(self):
 
 
 # main

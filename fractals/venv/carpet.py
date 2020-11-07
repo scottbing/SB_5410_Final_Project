@@ -100,21 +100,21 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         carpet(ad_m, abd_m, dac_m, da_m, iterations - 1, offset8)
 
 
-a = np.array([0, 0])
-b = np.array([3, 0])
-c = np.array([3, 3])
-d = np.array([0, 3])
-
-iterations = 4
-
-plt.figure(figsize=(20, 20))
-
-plt.fill([a[0], b[0], c[0], d[0]], [a[1], b[1], c[1], d[1]], color='maroon', alpha=0.8)
-#plt.hold(True)
-
-carpet(a, b, c, d, iterations)
-
-plt.title("Randomly Colored Sierpinski Carpet (iterations = 4)")
-plt.axis('equal')
-plt.axis('off')
-plt.show()
+# a = np.array([0, 0])
+# b = np.array([3, 0])
+# c = np.array([3, 3])
+# d = np.array([0, 3])
+#
+# iterations = 4
+#
+# plt.figure(figsize=(20, 20))
+#
+# plt.fill([a[0], b[0], c[0], d[0]], [a[1], b[1], c[1], d[1]], color='maroon', alpha=0.8)
+# #plt.hold(True)
+#
+# carpet(a, b, c, d, iterations)
+#
+# plt.title("Randomly Colored Sierpinski Carpet (iterations = 4)")
+# plt.axis('equal')
+# plt.axis('off')
+# plt.show()
