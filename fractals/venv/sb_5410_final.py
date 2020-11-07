@@ -15,11 +15,8 @@ from Tricircle import *
 from Carpet import *
 from AnimateSierpinski import *
 from AnimateDragon import *
+from HilbertCurve import *
 import tkinter.font as font
-# from SortFunctions import selectionSort
-# from SortFunctions import quickSortIterative
-# from SearchFunctions import binarySearchSub
-# from PixelFunctions import *
 import numpy as np
 import colorsys
 import os
@@ -43,6 +40,10 @@ class Application(Frame):
         self.master = master
 
         # reverse_btn = Button(self)
+        self.color_to_change = None
+        self.color1_to_change = None
+        self.color2_to_change = None
+        self.color3_to_change = None
 
         #Menu taken from:     https://www.tutorialspoint.com/python/tk_menu.htm
         # create menu
@@ -110,6 +111,13 @@ class Application(Frame):
         self.is_symcolored.set(False)
         self.is_tricircle.set(False)
         self.is_carpet.set(False)
+
+        # clear the colors
+        # reverse_btn = Button(self)
+        self.color_to_change = None
+        self.color1_to_change = None
+        self.color2_to_change = None
+        self.color3_to_change = None
 
         # # clear text boxes
         # self.height_ent.delete(0, 'end')
@@ -293,9 +301,9 @@ class Application(Frame):
                     ).grid(row=8, column=0, sticky=W)
 
         # create a colorized image button
-        self.colorize_btn = Button(self,
+        self.color_carpet_btn = Button(self,
                                    text="Select Colors",
-                                   command=self.colorize,
+                                   command=self.three_colors,
                                    highlightbackground='#2E4149',
                                    ).grid(row=8, column=1, sticky=W)
 
@@ -330,7 +338,7 @@ class Application(Frame):
 
         # process animated sierpinski color
         self.color_sierpinski_btn = Button(self,
-                                   text="Select Colors",
+                                   text="Select Color",
                                    command=self.colorize,
                                    highlightbackground='#2E4149',
                                    ).grid(row=10, column=1, sticky=W)
@@ -370,10 +378,37 @@ class Application(Frame):
         self.iterdrgn.set(5)
         self.iter_sp_drgn = Spinbox(self,
                                     from_=1,
-                                    to=8,
+                                    to=10,
                                     width=3,
                                     textvariable=self.iterdrgn
                                     ).grid(row=11, column=1, sticky=E)
+
+        # create a the animate hilbert button
+        self.hilbert_btn = Button(self,
+                                  text="Hilbert Curve",
+                                  command=self.anim_hilbert,
+                                  highlightbackground='#3E4149',
+                                  ).grid(row=12, column=0, sticky=W, padx=20, pady=5)
+
+        # process animated hilbert color
+        self.color_hilbert_btn = Button(self,
+                                        text="Select Color",
+                                        command=self.colorize,
+                                        highlightbackground='#2E4149',
+                                        ).grid(row=12, column=1, sticky=W)
+
+        Label(self,
+              text="Iterations:",
+              ).grid(row=12, column=1, padx=157, sticky=W)
+
+        self.iterhlb = IntVar()
+        self.iterhlb.set(5)
+        self.iter_sp_hlb = Spinbox(self,
+                                   from_=1,
+                                   to=6,
+                                   width=3,
+                                   textvariable=self.iterhlb
+                                   ).grid(row=12, column=1, sticky=E)
 
         btnFont = font.Font(weight="bold")
         btnFont = font.Font(size=19)
@@ -425,8 +460,8 @@ class Application(Frame):
 
     # end def is_number(n):
 
-    def colorize(self):
-        '''process tolerance'''
+    def three_colors(self):
+        '''process color selections'''
         self.lblFont = font.Font(weight="bold")
         self.lblFont = font.Font(size=16)
 
@@ -434,16 +469,178 @@ class Application(Frame):
         self.colorFrame.wm_title("Colorize Settings")
 
         Label(self.colorFrame,
-              text="Select a Tolerance value and a color using the RGB sliders and press Generate.",
+              text="Select three colors using the RGB sliders and press Generate.",
+              wraplength=200,
+              font=self.lblFont
+              ).grid(row=0, column=0, sticky=W, columnspan=3, padx=10, pady=10)
+
+        Label(self.colorFrame,
+              text="Color #1",
+              wraplength=200,
+              font=self.lblFont
+              ).grid(row=1, column=0, sticky=W, columnspan=3, padx=10, pady=10)
+
+        self.red_value1 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.red_value1,
+              from_=0, to=255,
+              resolution=1,
+              label="Red",
+              orient=HORIZONTAL
+              ).grid(row=2, column=0, sticky=NSEW, padx=10, pady=10)
+        self.red_value1.set(0)
+
+        self.green_value1 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.green_value1,
+              from_=0, to=255,
+              resolution=1,
+              label="Green",
+              orient=HORIZONTAL
+              ).grid(row=3, column=0, sticky=NSEW, padx=10, pady=10)
+        self.green_value1.set(0)
+
+        self.blue_value1 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.blue_value1,
+              from_=0, to=255,
+              resolution=1,
+              label="Blue",
+              orient=HORIZONTAL
+              ).grid(row=4, column=0, sticky=NSEW, padx=10, pady=10)
+        self.blue_value1.set(0)
+
+        Label(self.colorFrame,
+              text="Color #2",
+              wraplength=200,
+              font=self.lblFont
+              ).grid(row=1, column=1, sticky=W, columnspan=3, padx=10, pady=10)
+
+        self.red_value2 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.red_value2,
+              from_=0, to=255,
+              resolution=1,
+              label="Red",
+              orient=HORIZONTAL
+              ).grid(row=2, column=1, sticky=NSEW, padx=10, pady=10)
+        self.red_value2.set(0)
+
+        self.green_value2 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.green_value2,
+              from_=0, to=255,
+              resolution=1,
+              label="Green",
+              orient=HORIZONTAL
+              ).grid(row=3, column=1, sticky=NSEW, padx=10, pady=10)
+        self.green_value2.set(0)
+
+        self.blue_value2 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.blue_value2,
+              from_=0, to=255,
+              resolution=1,
+              label="Blue",
+              orient=HORIZONTAL
+              ).grid(row=4, column=1, sticky=NSEW, padx=10, pady=10)
+        self.blue_value2.set(0)
+
+        Label(self.colorFrame,
+              text="Color #3",
+              wraplength=200,
+              font=self.lblFont
+              ).grid(row=1, column=2, sticky=W, columnspan=3, padx=10, pady=10)
+
+        self.red_value3 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.red_value3,
+              from_=0, to=255,
+              resolution=1,
+              label="Red",
+              orient=HORIZONTAL
+              ).grid(row=2, column=2, sticky=NSEW, padx=10, pady=10)
+        self.red_value3.set(0)
+
+        self.green_value3 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.green_value3,
+              from_=0, to=255,
+              resolution=1,
+              label="Green",
+              orient=HORIZONTAL
+              ).grid(row=3, column=2, sticky=NSEW, padx=10, pady=10)
+        self.green_value3.set(0)
+
+        self.blue_value3 = DoubleVar()
+        Scale(self.colorFrame,
+              variable=self.blue_value3,
+              from_=0, to=255,
+              resolution=1,
+              label="Blue",
+              orient=HORIZONTAL
+              ).grid(row=4, column=2, sticky=NSEW, padx=10, pady=10)
+        self.blue_value3.set(0)
+
+        # create a the generate button
+        self.gen_colorize_btn = Button(self.colorFrame,
+                                       text="Generate",
+                                       command=self.processThreeColors,
+                                       highlightbackground='#3E4149',
+                                       font=self.lblFont
+                                       ).grid(row=5, column=0, sticky=E, pady=10, padx=5)
+
+        self.cerr2show = StringVar()
+        Label(self.colorFrame,
+              textvariable=self.cerr2show,
+              foreground="red",
+              font=self.errFont,
+              wraplength=200
+              ).grid(row=6, column=0, sticky=NSEW, pady=4)
+    # end def three_colors(self):
+
+    def processThreeColors(self):
+        """ Gets three color values """
+        # get color #1
+        red1 = (int(self.red_value1.get()))
+        green1 = (int(self.green_value1.get()))
+        blue1 = (int(self.blue_value1.get()))
+
+        #convert RGB color to hexadecimal value
+        self.color1_to_change = '#{:02x}{:02x}{:02x}'.format(red1, green1, blue1)
+
+        # get color #2
+        red2 = (int(self.red_value2.get()))
+        green2 = (int(self.green_value2.get()))
+        blue2 = (int(self.blue_value2.get()))
+
+        # convert RGB color to hexadecimal value
+        self.color2_to_change = '#{:02x}{:02x}{:02x}'.format(red2, green2, blue2)
+
+        # get color #3
+        red3 = (int(self.red_value3.get()))
+        green3 = (int(self.green_value3.get()))
+        blue3 = (int(self.blue_value3.get()))
+
+        # convert RGB color to hexadecimal value
+        self.color3_to_change = '#{:02x}{:02x}{:02x}'.format(red3, green3, blue3)
+
+        self.colorFrame.destroy()
+    #end def processThreeColors(self):
+
+    def colorize(self):
+        '''process color selections'''
+        self.lblFont = font.Font(weight="bold")
+        self.lblFont = font.Font(size=16)
+
+        self.colorFrame = Toplevel(self)
+        self.colorFrame.wm_title("Colorize Settings")
+
+        Label(self.colorFrame,
+              text="Select a color using the RGB sliders and press Generate.",
               wraplength=200,
               font=self.lblFont
               ).grid(row=0, column=0, sticky=W, padx=10, pady=10)
-
-        Label(self.colorFrame,
-              text="Tolerance:"
-              ).grid(row=1, column=0, sticky=W, padx=10, pady=10)
-        self.tolerance_ent = Entry(self.colorFrame, width=10)
-        self.tolerance_ent.grid(row=1, column=0, sticky=E, padx=10, pady=10)
 
         self.red_value = DoubleVar()
         Scale(self.colorFrame,
@@ -483,6 +680,8 @@ class Application(Frame):
                                    font=self.lblFont
                                    ).grid(row=5, column=0, sticky=E, pady=10, padx=5)
 
+        self.errFont = font.Font(weight="bold")
+        self.errFont = font.Font(size=20)
         self.cerr2show = StringVar()
         Label(self.colorFrame,
               textvariable=self.cerr2show,
@@ -493,35 +692,8 @@ class Application(Frame):
 
     #end def colorize(self):
 
-    # Taken from: https://www.codingame.com/playgrounds/2524/basic-image-manipulation/colors
-    # Square distance between 2 colors
-    def distance2(self, color1, color2):
-        """square distance between 2 colors"""
-        r1, g1, b1 = color1
-        r2, g2, b2 = color2
-        return (r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2
-
-    #end distance2(self, color1, color2):
-
-    # Taken from: https://www.codingame.com/playgrounds/2524/basic-image-manipulation/colors
     def processColorize(self):
         """ Adds a user selected color to the image """
-        # read each pixel into memory as the image object im
-        # err = False
-        # im = Image.open(self.fileName)
-        # pixels = im.load()
-        # #pixels = storePixels(im)
-        # print("stored")
-        # # manipulate file name for save process
-        # baseFile = self.fileName.split('/')
-        # length = len(baseFile)
-        # base = baseFile[len(baseFile) - 1]
-        # print(baseFile[len(baseFile) - 1])
-        #
-        # # Create output image
-        # out = Image.new("RGB", im.size)
-        # draw = ImageDraw.Draw(out)
-
         # get select color
         red = (int(self.red_value.get()))
         green = (int(self.green_value.get()))
@@ -531,10 +703,26 @@ class Application(Frame):
         self.color_to_change = '#{:02x}{:02x}{:02x}'.format(red, green, blue)
 
         self.colorFrame.destroy()
+    #end def processColorize(self):
 
-        #return self.color_to_change
+    def anim_hilbert(self):
+        # Global parameters
 
-        #end def processColorize(self):
+        width = 450
+
+        title = "Hilbert-Curve-II"
+        axiom = "X"
+        rules = {"X": "XFYFX+F+YFXFY-F-XFYFX", "Y": "YFXFY-F-XFYFX+F+YFXFY"}
+        iterations = 4  # TOP: 6
+        angle = 90
+        y_offset = -190
+        angle_offset = 0
+
+        if self.color_to_change == None:
+            self.color_to_change = 'maroon'
+
+        hilbert_curve(iterations, axiom, rules, angle, aspect_ratio=1, width=width,
+             offset_angle=angle_offset, y_offset=y_offset, color=self.color_to_change)
 
     def anim_dragon(self):
         # Global parameters
@@ -546,13 +734,16 @@ class Application(Frame):
         rules = {"F": "F-F+F"}
         iterations = 7  # TOP: 10
         angle = 120
-        c = 'purple'
+        #c = 'purple'
 
         offset_angle = 90 - 30 * iterations
         correction_angle = 180 - 30 * iterations
 
+        if self.color_to_change == None:
+            self.color_to_change = 'magenta'
+
         animate_dragon(iterations, axiom, rules, angle, correction_angle=correction_angle,
-             offset_angle=offset_angle, width=width, height=width)
+             offset_angle=offset_angle, width=width, height=width, color=self.color_to_change)
 
     def anim_sierpinski(self):
         # Global parameters
@@ -565,7 +756,11 @@ class Application(Frame):
         iterations = self.itersier.get()  # TOP: 8
         angle = 60
 
+        if self.color_to_change == None:
+            self.color_to_change = 'navy'
+
         animate_sierpinski(iterations, axiom, rules, angle, aspect_ratio=1, width=width, color=self.color_to_change)
+    #end anim_sierpinski(self):
 
     def carpet(self):
         a = np.array([0, 0])
@@ -573,16 +768,34 @@ class Application(Frame):
         c = np.array([3, 3])
         d = np.array([0, 3])
 
+        #set the iterations
         iterations = self.itercarp.get()
+
+        #set the colors
+        if self.color1_to_change is None:
+            c1 = 'maroon'
+        else:
+            c1 = self.color1_to_change
+
+        if self.color2_to_change is None:
+            c2 = (random.random(), random.random(), random.random())
+        else:
+            c2 = self.color2_to_change
+
+        if self.color3_to_change is None:
+            c3 = (random.random(), random.random(), random.random())
+        else:
+            c3 = self.color3_to_change
+
 
         plt.figure(figsize=(20, 20))
 
-        plt.fill([a[0], b[0], c[0], d[0]], [a[1], b[1], c[1], d[1]], color='maroon', alpha=0.8)
+        plt.fill([a[0], b[0], c[0], d[0]], [a[1], b[1], c[1], d[1]], color=c1, alpha=0.8)
         # plt.hold(True)
 
-        carpet(a, b, c, d, iterations)
+        carpet(a, b, c, d, iterations, c2, c3)
 
-        plt.title("Randomly Colored Sierpinski Carpet (iterations = 4)")
+        plt.title("Randomly Colored Sierpinski Carpet (iterations = " + str(iterations) + ")")
         plt.axis('equal')
         plt.axis('off')
         plt.show()

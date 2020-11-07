@@ -3,7 +3,8 @@ import matplotlib.pylab as plt
 import random
 
 
-def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
+def carpet(a, b, c, d, iterations, c2, c3, offset=np.array([0, 0])):
+
     ab = (a + b) / 3.
     ba = 2 * (a + b) / 3.
     bc = (2 * b + c) / 3.
@@ -18,20 +19,18 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
     cbd = 4 * a / 3. + 2 * (b + d) / 3.
     dac = a + (b + 2 * d) / 3.
 
-    x = (random.random(), random.random(), random.random())
-
     plt.fill([abd[0] + offset[0], bac[0] + offset[0],
               cbd[0] + offset[0], dac[0] + offset[0]],
              [abd[1] + offset[1], bac[1] + offset[1],
-              cbd[1] + offset[1], dac[1] + offset[1]], color=x, alpha=0.9)
-    #plt.hold(True)
+              cbd[1] + offset[1], dac[1] + offset[1]], color=c2, alpha=0.9)
+    # plt.hold(True)
 
     if iterations == 0:
         plt.fill([abd[0] + offset[0], bac[0] + offset[0],
                   cbd[0] + offset[0], dac[0] + offset[0]],
                  [abd[1] + offset[1], bac[1] + offset[1],
-                  cbd[1] + offset[1], dac[1] + offset[1]], color=x, alpha=0.9)
-        #plt.hold(True)
+                  cbd[1] + offset[1], dac[1] + offset[1]], color=c3, alpha=0.9)
+        # plt.hold(True)
 
     else:
 
@@ -41,7 +40,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         abd_m = abd - a
         ad_m = ad - a
         offset1 = offset + a
-        carpet(a_m, ab_m, abd_m, ad_m, iterations - 1, offset1)
+        carpet(a_m, ab_m, abd_m, ad_m, iterations - 1, c2, c3,  offset1)
 
         # 2
         ab_m = np.array([0, 0])
@@ -49,7 +48,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         bac_m = bac - ab
         abd_m = abd - ab
         offset2 = offset + ab
-        carpet(ab_m, ba_m, bac_m, abd_m, iterations - 1, offset2)
+        carpet(ab_m, ba_m, bac_m, abd_m, iterations - 1, c2, c3, offset2)
 
         # 3
         ba_m = np.array([0, 0])
@@ -57,7 +56,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         bc_m = bc - ba
         bac_m = bac - ba
         offset3 = offset + ba
-        carpet(ba_m, b_m, bc_m, bac_m, iterations - 1, offset3)
+        carpet(ba_m, b_m, bc_m, bac_m, iterations - 1, c2, c3, offset3)
 
         # 4
         bac_m = np.array([0, 0])
@@ -65,7 +64,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         cb_m = cb - bac
         cbd_m = cbd - bac
         offset4 = offset + bac
-        carpet(bac_m, bc_m, cb_m, cbd_m, iterations - 1, offset4)
+        carpet(bac_m, bc_m, cb_m, cbd_m, iterations - 1, c2, c3, offset4)
 
         # 5
         cbd_m = np.array([0, 0])
@@ -73,7 +72,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         c_m = c - cbd
         cd_m = cd - cbd
         offset5 = offset + cbd
-        carpet(cbd_m, cb_m, c_m, cd_m, iterations - 1, offset5)
+        carpet(cbd_m, cb_m, c_m, cd_m, iterations - 1, c2, c3, offset5)
 
         # 6
         dac_m = np.array([0, 0])
@@ -81,7 +80,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         cd_m = cd - dac
         dc_m = dc - dac
         offset6 = offset + dac
-        carpet(dac_m, cbd_m, cd_m, dc_m, iterations - 1, offset6)
+        carpet(dac_m, cbd_m, cd_m, dc_m, iterations - 1, c2, c3, offset6)
 
         # 7
         da_m = np.array([0, 0])
@@ -89,7 +88,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         dc_m = dc - da
         d_m = d - da
         offset7 = offset + da
-        carpet(da_m, dac_m, dc_m, d_m, iterations - 1, offset7)
+        carpet(da_m, dac_m, dc_m, d_m, iterations - 1, c2, c3, offset7)
 
         # 8
         ad_m = np.array([0, 0])
@@ -97,8 +96,7 @@ def carpet(a, b, c, d, iterations, offset=np.array([0, 0])):
         dac_m = dac - ad
         da_m = da - ad
         offset8 = offset + ad
-        carpet(ad_m, abd_m, dac_m, da_m, iterations - 1, offset8)
-
+        carpet(ad_m, abd_m, dac_m, da_m, iterations - 1, c2, c3, offset8)
 
 # a = np.array([0, 0])
 # b = np.array([3, 0])

@@ -61,7 +61,7 @@ def calc_length_height(instructions, angle, correction_angle):
 
 def animate_dragon(iterations, axiom, rules, angle, length=None, size=None, correction_angle=0,
                    y_offset=None, x_offset=None, offset_angle=None, inverted=False, flip_h=False,
-                   flip_v=False, width=None, height=None, margin=None, aspect_ratio=None):
+                   flip_v=False, width=None, height=None, margin=None, aspect_ratio=None, color='purple'):
     inst = create_l_system(iterations, axiom, rules)
 
     width_, height_, min_x, min_y = calc_length_height(inst, angle, correction_angle)
@@ -151,7 +151,7 @@ def animate_dragon(iterations, axiom, rules, angle, length=None, size=None, corr
     t.left(offset_angle)
     t.down()
     t.speed(0)
-    t.color(c)
+    t.color(color)
     t.pensize(size)
     draw_l_system(t, inst, angle, length)
     t.hideturtle()
