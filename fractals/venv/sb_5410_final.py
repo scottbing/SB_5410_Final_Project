@@ -13,6 +13,8 @@ from Julia import *
 from RectSierpinski import *
 from Tricircle import *
 from Carpet import *
+import fractal
+from random import randrange
 from AnimateSierpinski import *
 from AnimateDragon import *
 from HilbertCurve import *
@@ -200,16 +202,28 @@ class Application(Frame):
               font=self.lblFont
               ).grid(row=0, column=0, columnspan=3, sticky=NSEW, pady=7)
 
+        ttk.Separator(self,
+                      orient=HORIZONTAL
+                      ).grid(row=1, column=0, columnspan=2, sticky=EW, pady=5, padx=5)
+
+        animFont = font.Font(weight="bold")
+        animFont = font.Font(size=21)
+
+        Label(self,
+              text="Static:",
+              font=animFont
+              ).grid(row=2, column=0, columnspan=2, sticky=W)
+
         # process mandlebrot set
         self.is_mandlebrot = BooleanVar()
         Checkbutton(self,
                     text="Mandelbrot Set",
                     variable=self.is_mandlebrot
-                    ).grid(row=2, column=0,  sticky=W)
+                    ).grid(row=3, column=0,  sticky=W)
 
         Label(self,
               text="Theme:"
-              ).grid(row=2, column=1, sticky=W)
+              ).grid(row=3, column=1, sticky=W)
 
         self.theme = StringVar()
         self.themes = ttk.Combobox(self,
@@ -230,7 +244,7 @@ class Application(Frame):
                             'nipy_spectral',
                             'Pastell')
 
-        self.themes.grid(row=2, column=1, padx=57, sticky=W)
+        self.themes.grid(row=3, column=1, padx=57, sticky=W)
 
         # Shows ocean as a default value
         self.themes.current(0)
@@ -240,18 +254,18 @@ class Application(Frame):
         Checkbutton(self,
                     text="Julia",
                     variable=self.is_julia
-                    ).grid(row=3, column=0, sticky=W)
+                    ).grid(row=4, column=0, sticky=W)
 
         # process Cubistic Sierpinski Synthesis
         self.is_cubistic = BooleanVar()
         Checkbutton(self,
                     text="Cubistic Sierpinski",
                     variable=self.is_cubistic
-                    ).grid(row=4, column=0, sticky=W)
+                    ).grid(row=5, column=0, sticky=W)
 
         Label(self,
               text="Iterations:",
-              ).grid(row=4, column=1, padx=157, sticky=W)
+              ).grid(row=5, column=1, padx=157, sticky=W)
 
         self.itercube = IntVar()
         self.itercube.set(7)
@@ -261,18 +275,18 @@ class Application(Frame):
                             width=3,
                             textvariable=self.itercube
                             #variable=self.iterations
-                            ).grid(row=4, column=1, sticky=E)
+                            ).grid(row=5, column=1, padx=230, sticky=W)
 
         # Process Randomly Colored Sierpinski Triangle
         self.is_symcolored = BooleanVar()
         Checkbutton(self,
                     text="Sierpinski Triangle",
                     variable=self.is_symcolored
-                    ).grid(row=5, column=0, sticky=W)
+                    ).grid(row=6, column=0, sticky=W)
 
         Label(self,
               text="Iterations:",
-              ).grid(row=5, column=1, padx=157, sticky=W)
+              ).grid(row=6, column=1, padx=157, sticky=W)
 
         self.itersym = IntVar()
         self.itersym.set(5)
@@ -282,7 +296,7 @@ class Application(Frame):
                             width=3,
                             textvariable=self.itersym
                             # variable=self.iterations
-                            ).grid(row=5, column=1, sticky=E)
+                            ).grid(row=6, column=1, padx=230, sticky=W)
 
         # process tricircle
         self.is_tricircle = BooleanVar()
@@ -318,15 +332,38 @@ class Application(Frame):
                             to=7,
                             width=3,
                             textvariable=self.itercarp
-                            ).grid(row=8, column=1, sticky=E)
+                            ).grid(row=8, column=1, padx=230, sticky=W)
+
+        btnFont = font.Font(weight="bold")
+        btnFont = font.Font(size=19)
+
+        # create a the generate button
+        self.generate_btn = Button(self,
+                                   text="Generate",
+                                   command=self.processSelections,
+                                   highlightbackground='#3E4149',
+                                   font=btnFont
+                                   ).grid(row=9, column=0, sticky=W, pady=10, padx=5)
+
+        # create a the clear screen button
+        self.clear_btn = Button(self,
+                                text="Clear",
+                                command=self.clearScreen,
+                                highlightbackground='#2E4149',
+                                font=btnFont
+                                ).grid(row=9, column=1, sticky=W, pady=10, padx=5)
+
+        ttk.Separator(self,
+                      orient=HORIZONTAL
+                      ).grid(row=10, column=0, columnspan=2, sticky=NSEW, pady=5, padx=5)
 
         animFont = font.Font(weight="bold")
         animFont = font.Font(size=21)
 
         Label(self,
-              text="Animations:",
+              text="Animated:",
               font=animFont
-              ).grid(row=9, column=0, columnspan=2, sticky=W)
+              ).grid(row=11, column=0, columnspan=2, sticky=W)
 
 
         # create a the animate sierpinski button
@@ -334,18 +371,18 @@ class Application(Frame):
                                      text="Sierpinski",
                                      command=self.anim_sierpinski,
                                      highlightbackground='#3E4149',
-                                     ).grid(row=10, column=0, sticky=W, padx=20, pady=5)
+                                     ).grid(row=12, column=0, sticky=W, padx=20, pady=5)
 
         # process animated sierpinski color
         self.color_sierpinski_btn = Button(self,
                                    text="Select Color",
                                    command=self.colorize,
                                    highlightbackground='#2E4149',
-                                   ).grid(row=10, column=1, sticky=W)
+                                   ).grid(row=12, column=1, sticky=W)
 
         Label(self,
               text="Iterations:",
-              ).grid(row=10, column=1, padx=157, sticky=W)
+              ).grid(row=12, column=1, padx=157, sticky=W)
 
         self.itersier = IntVar()
         self.itersier.set(5)
@@ -354,25 +391,25 @@ class Application(Frame):
                             to=8,
                             width=3,
                             textvariable=self.itersier
-                            ).grid(row=10, column=1, sticky=E)
+                            ).grid(row=12, column=1, padx=230, sticky=W)
 
         # create a the animate dragon button
         self.dragon_btn = Button(self,
                                  text="Dragon",
                                  command=self.anim_dragon,
                                  highlightbackground='#3E4149',
-                                 ).grid(row=11, column=0, sticky=W, padx=20, pady=5)
+                                 ).grid(row=13, column=0, sticky=W, padx=20, pady=5)
 
         # process animated dragon color
         self.color_dragon_btn = Button(self,
                                        text="Select Color",
                                        command=self.colorize,
                                        highlightbackground='#2E4149',
-                                       ).grid(row=11, column=1, sticky=W)
+                                       ).grid(row=13, column=1, sticky=W)
 
         Label(self,
               text="Iterations:",
-              ).grid(row=11, column=1, padx=157, sticky=W)
+              ).grid(row=13, column=1, padx=157, sticky=W)
 
         self.iterdrgn = IntVar()
         self.iterdrgn.set(5)
@@ -381,25 +418,25 @@ class Application(Frame):
                                     to=10,
                                     width=3,
                                     textvariable=self.iterdrgn
-                                    ).grid(row=11, column=1, sticky=E)
+                                    ).grid(row=13, column=1, padx=230, sticky=W)
 
         # create a the animate hilbert button
         self.hilbert_btn = Button(self,
                                   text="Hilbert Curve",
                                   command=self.anim_hilbert,
                                   highlightbackground='#3E4149',
-                                  ).grid(row=12, column=0, sticky=W, padx=20, pady=5)
+                                  ).grid(row=14, column=0, sticky=W, padx=20, pady=5)
 
         # process animated hilbert color
         self.color_hilbert_btn = Button(self,
                                         text="Select Color",
                                         command=self.colorize,
                                         highlightbackground='#2E4149',
-                                        ).grid(row=12, column=1, sticky=W)
+                                        ).grid(row=14, column=1, sticky=W)
 
         Label(self,
               text="Iterations:",
-              ).grid(row=12, column=1, padx=157, sticky=W)
+              ).grid(row=14, column=1, padx=157, sticky=W)
 
         self.iterhlb = IntVar()
         self.iterhlb.set(5)
@@ -408,31 +445,47 @@ class Application(Frame):
                                    to=6,
                                    width=3,
                                    textvariable=self.iterhlb
-                                   ).grid(row=12, column=1, sticky=E)
+                                   ).grid(row=14, column=1, padx=230, sticky=W)
 
-        btnFont = font.Font(weight="bold")
-        btnFont = font.Font(size=19)
+        # create a the animate slideshow button
+        self.slideshow_btn = Button(self,
+                                  text="Fractal Slide Show",
+                                  command=self.anim_slideshow,
+                                  highlightbackground='#3E4149',
+                                  ).grid(row=15, column=0, sticky=W, padx=20, pady=5)
+
+        Label(self,
+              text="Height:"
+              ).grid(row=15, column=1, sticky=W)
+        self.height_ent = Entry(self, width=10)
+        self.height_ent.grid(row=15, column=1, padx=55,sticky=W)
+        Label(self,
+              text="Width:"
+              ).grid(row=15, column=1, padx=157, sticky=W)
+        self.width_ent = Entry(self, width=10)
+        self.width_ent.grid(row=15, column=1, padx=210, sticky=W)
+
+        Label(self,
+              text="Frequency:"
+              ).grid(row=16, column=1, sticky=W)
+
+        self.iterfrq = IntVar()
+        self.iterfrq.set(5)
+        self.iter_sp_frq = Spinbox(self,
+                                   from_=1,
+                                   to=20,
+                                   width=3,
+                                   textvariable=self.iterfrq
+                                   ).grid(row=16, column=1, padx=75, sticky=W)
+
+        Label(self,
+              text="seconds"
+              ).grid(row=16, column=1, padx=100, sticky=W)
 
         # create a filler
         Label(self,
               text=" "
               ).grid(row=17, column=0, sticky=W)
-
-        # create a the clear screen button
-        self.clear_btn = Button(self,
-                                text="Clear",
-                                command=self.clearScreen,
-                                highlightbackground='#3E4149',
-                                font=btnFont
-                                ).grid(row=18, column=0, sticky=E, pady=10, padx=5)
-
-        # create a the generate button
-        self.generate_btn = Button(self,
-                                   text="Generate",
-                                   command=self.processSelections,
-                                   highlightbackground='#3E4149',
-                                   font=btnFont
-                                   ).grid(row=18, column=1, sticky=W, pady=10, padx=5)
 
         self.errFont = font.Font(weight="bold")
         self.errFont = font.Font(size=20)
@@ -443,7 +496,6 @@ class Application(Frame):
               font=self.errFont,
               wraplength=200
               ).grid(row=19, column=0, sticky=NSEW, pady=4)
-
     #end def create_widgets(self):
 
 
@@ -705,6 +757,30 @@ class Application(Frame):
         self.colorFrame.destroy()
     #end def processColorize(self):
 
+    def anim_slideshow(self):
+        # taken from: https://github.com/Tikolu/fractal.py
+
+        print("Fractal Screensaver. Click to Exit.")
+        width = int(input("Width: "))
+        height = int(input("Height: "))
+        updatemode = int(input("Update Frequency: "))
+
+        d = fractal.display(width, height, True)
+
+        while True:
+            iterations = randrange(5, 25)
+            power = randrange(-5, 5)
+
+            r = randrange(1, 8)
+            g = randrange(1, 8)
+            b = randrange(1, 8)
+            hue = r, g, b
+
+            darkmode = randrange(0, 2)
+
+            fractal.generate(d, iterations, power, hue, darkmode, updatemode)
+    #end def anim_slideshow(self):
+
     def anim_hilbert(self):
         # Global parameters
 
@@ -723,6 +799,7 @@ class Application(Frame):
 
         hilbert_curve(iterations, axiom, rules, angle, aspect_ratio=1, width=width,
              offset_angle=angle_offset, y_offset=y_offset, color=self.color_to_change)
+        #end def anim_hilbert(self):
 
     def anim_dragon(self):
         # Global parameters
