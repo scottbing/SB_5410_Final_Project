@@ -769,6 +769,20 @@ class Application(Frame):
     def anim_slideshow(self):
         # taken from: https://github.com/Tikolu/fractal.py
 
+        # check height
+        try:
+            h = int(self.height_ent.get())
+        except Exception as e:
+            err = True
+            self.err2show.set("Resize Height value is missing or invalid")
+
+        # check width
+        try:
+            w = int(self.width_ent.get())
+        except Exception as e:
+            err = True
+            self.err2show.set("Resize Width value is missing or invalid")
+
         # get user input
         h = self.height_ent.get()
         w = self.width_ent.get()
