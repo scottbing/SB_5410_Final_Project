@@ -9,14 +9,20 @@ from tkinter.filedialog import askopenfilename
 from PIL import Image, ImageDraw, ImageTk, ImageOps, ImageEnhance, ImageFont
 import matplotlib.pyplot as plt
 from MandlebrotSet import *
+from harmonograph import *
+from colorharmon import *
 from Julia import *
 from RectSierpinski import *
 from Tricircle import *
 from Carpet import *
+from SlideShow import *
 from AnimateSierpinski import *
 from AnimateDragon import *
 from HilbertCurve import *
 import tkinter.font as font
+from turtle import *
+from random import randint
+from colorsys import hsv_to_rgb
 import numpy as np
 import colorsys
 import os
@@ -38,6 +44,9 @@ class Application(Frame):
 
         Frame.__init__(self, master)
         self.master = master
+
+        # used when calling slideshow
+        # pygame.init()
 
         # reverse_btn = Button(self)
         self.color_to_change = None
@@ -310,6 +319,13 @@ class Application(Frame):
                     variable=self.is_tricircle
                     ).grid(row=7, column=0, sticky=W)
 
+        # process animated sierpinski color
+        self.color_sierpinski_btn = Button(self,
+                                           text="Select Circle Color",
+                                           command=self.colorize,
+                                           highlightbackground='#2E4149',
+                                           ).grid(row=7, column=1, sticky=W)
+
         # Process carpet
         self.is_carpet = BooleanVar()
         Checkbutton(self,
@@ -484,10 +500,31 @@ class Application(Frame):
               text="seconds"
               ).grid(row=16, column=1, padx=100, sticky=W)
 
+        # create a the animate slideshow button
+        self.harmon_btn = Button(self,
+                                 text="Harmonograph",
+                                 command=self.anim_harmon,
+                                 highlightbackground='#3E4149',
+                                 ).grid(row=17, column=0, sticky=W, padx=20, pady=5)
+
+        # create a the animate slideshow button
+        self.color_harmon_btn = Button(self,
+                                 text="Colorful Harmonograph",
+                                 command=self.anim_color_harmon,
+                                 highlightbackground='#3E4149',
+                                 ).grid(row=18, column=0, sticky=W, padx=20, pady=5)
+
+        # create a the animate slideshow button
+        self.random_btn = Button(self,
+                                       text="Random Walk",
+                                       command=self.anim_random,
+                                       highlightbackground='#3E4149',
+                                       ).grid(row=19, column=0, sticky=W, padx=20, pady=5)
+
         # create a filler
         Label(self,
               text=" "
-              ).grid(row=17, column=0, sticky=W)
+              ).grid(row=20, column=0, sticky=W)
 
         self.errFont = font.Font(weight="bold")
         self.errFont = font.Font(size=20)
@@ -497,7 +534,7 @@ class Application(Frame):
               foreground="red",
               font=self.errFont,
               wraplength=200
-              ).grid(row=19, column=0, sticky=NSEW, pady=4)
+              ).grid(row=21, column=0, sticky=NSEW, pady=4)
 
     # end def create_widgets(self):
 
@@ -762,38 +799,72 @@ class Application(Frame):
 
     # end def processColorize(self):
 
+    def anim_random(self):
+        #   Random Walk, in glorious Technicolour
+        #   https://docs.python.org/3/library/turtle.html
+        #   Authour: Alan Richmond, Python3.codes
+
+        step = 30  # length of each step
+        nsteps = 2000  # number of steps
+        hinc = 1.0 / nsteps  # hue increment
+        width(2)  # width of line
+
+        (w, h) = screensize()  # boundaries of walk
+        speed('fastest')
+        colormode(1.0)  # colours 0:1 instead of 0:255
+        bgcolor('black')  # black background
+        hue = 0.0
+        for i in range(nsteps):
+            setheading(randint(0, 359))
+            #   https://docs.python.org/2/library/colorsys.html
+            color(hsv_to_rgb(hue, 1.0, 1.0))  # pen colour in RGB
+            hue += hinc  # change colour
+            forward(step)  # step along!
+            (x, y) = pos()  # where are we?
+            if abs(x) > w or abs(y) > h:  # if at boundary
+                backward(step)  # step back
+        done()
+
+    def anim_color_harmon(self):
+        """Call the harmongraph script"""
+        color_harmon()
+
+    def anim_harmon(self):
+        """Call the harmongraph script"""
+        harmon()
+
     def anim_slideshow(self):
         # taken from: https://github.com/Tikolu/fractal.py
 
-        #exec(open('Tikolu.py').read())
+        # check height
+        try:
+            h = int(self.height_ent.get())
+        except Exception as e:
+            err = True
+            self.err2show.set("Resize Height value is missing or invalid")
 
-        #os.system('Tikolu.py')
+        # check width
+        try:
+            w = int(self.width_ent.get())
+        except Exception as e:
+            err = True
+            self.err2show.set("Resize Width value is missing or invalid")
 
-        #Tikolu_bk01.py
+        # get user input
+        h = self.height_ent.get()
+        w = self.width_ent.get()
+        um = self.iterfrq.get()
 
-        os.system('python Tikolu_bk01.py')
+        # set default values
+        h = 300 if h == "" else int(h)
+        w = 300 if w == "" else int(w)
+        um = 300 if um == "" else int(um)
 
-        # pygame.init()
-        #
-        # print("Fractal Screensaver. Click to Exit.")
-        # width = int(input("Width: "))
-        # height = int(input("Height: "))
-        # updatemode = int(input("Update Frequency: "))
-        #
-        # d = fractal.display(width, height, True)
-        #
-        # while True:
-        #     iterations = randrange(5, 25)
-        #     power = randrange(-5, 5)
-        #
-        #     r = randrange(1, 8)
-        #     g = randrange(1, 8)
-        #     b = randrange(1, 8)
-        #     hue = r, g, b
-        #
-        #     darkmode = randrange(0, 2)
-        #
-        #     fractal.generate(d, iterations, power, hue, darkmode, updatemode)
+        # call the slideshow
+        tikolu(h,
+               w,
+               um)
+    #end def anim_slideshow(self):
 
     def anim_hilbert(self):
         # Global parameters
@@ -906,7 +977,10 @@ class Application(Frame):
         ax.set_xlim((0, 1))  # ((-3,3))
         ax.set_ylim((0, 1))  # ((-3,3))
 
-        draw_triangle_fractal(ax, triangle, radius_limit)
+        if self.color_to_change == None:
+            self.color_to_change = 'r'
+
+        draw_triangle_fractal(ax, triangle, radius_limit, 'w', self.color_to_change, 2)
 
         plt.title(
             "Randomly Colored Sierpinski Triangle With Embedded Circles")
