@@ -1,0 +1,166 @@
+ Accent_r
+ afmhot
+ autumn
+ autumn_r
+ binary
+ binary_r
+ Blues_r
+ bone
+ bone_r
+ BrBG
+ BrBG_r
+ brg
+ brg_r
+ BuGn
+ BuGn_r
+ BuPu
+ BuPu_r
+ bwr_r
+ cividis
+ cividis_r
+ CMRmap
+ CMRmap_r
+ cool
+ cool_r
+ coolwarm
+ coolwarm_r
+ copper
+ cubehelix
+ cubehelix_r
+ Dark2_r
+ flag
+ flag_r
+ gist_earth
+ gist_earth_r
+ gist_gray_r
+ gist_heat
+ gist_heat_r
+ gist_ncar
+ gist_ncar_r
+ gist_rainbow_r
+ gist_stern
+ gist_stern_r
+ gist_yarg
+ gist_yarg_r
+ GnBu
+ GnBu_r
+ gnuplot_r
+ gnuplot2
+ gnuplot2_r
+ gray
+ gray_r
+ Greens
+ Greens_r
+ Greys
+ Greys_r
+ hot
+ hot_r
+ hsv
+ inferno
+ inferno_r
+ jet
+ jet_r
+ magma
+ magma_r
+ nipy_spectral
+ ocean
+ ocean_r
+ Oranges
+ Oranges_r
+ OrRd
+ Paired
+ Paired_r
+ Pastel1
+ Pastel2
+ Pastel2_r
+ pink
+ pink_r
+ PiYG
+ PiYG_r
+ plasma
+ plasma_r
+ PRGn
+ PRGn_r
+ prism
+ PuBu
+ PuBu_r
+ PuBuGn
+ PuBuGn_r
+ PuOr_r
+ PuRd
+ PuRd_r
+ Purples
+ Purples_r
+ rainbow
+ rainbow_r
+ RdBu
+ RdBu_r
+ RdGy
+ RdGy_r
+ RdPu_r
+ RdYlBu
+ RdYlBu_r
+ RdYlGn
+ RdYlGn_r
+ Reds
+ Reds_r
+ seismic
+ seismic_r
+ Set1
+ Set2
+ Set2_r
+ Set3
+ Set3_r
+ Spectral
+ Spectral_r
+ spring
+ spring_r
+ summer
+ tab10
+ tab10_r
+ tab20
+ tab20_r
+ tab20b
+ tab20b_r
+ tab20c
+ tab20c_r
+ terrain_r
+ turbo
+ turbo_r
+ twilight
+ twilight_r
+ twilight_shifted
+ viridis
+ viridis_r
+ winter
+ winter_r
+ Wistia
+ Wistia_r
+ YlGn_r
+ YlGnBu
+ YlGnBu_r
+ YlOrBr
+ YlOrBr_r
+ YlOrRd
+ YlOrRd_r
+Accent
+afmhot_r
+Blues
+bwr
+copper_r
+Dark2
+gist_gray
+gist_rainbow
+gnuplot
+hsv_r
+nipy_spectral_r
+OrRd_r
+Pastel1_r
+prism_r
+PuOr
+RdPu
+Set1_r
+summer_r
+terrain
+twilight_shifted_r
+YlGn

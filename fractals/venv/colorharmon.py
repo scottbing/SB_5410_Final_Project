@@ -60,7 +60,7 @@ def color_harmon():
     # width,height=2560,1440      # YT channel art
     dd = 0.99995  # decay factor
     dt = 0.02  # time increment
-    speed = 200  # yes, speed
+    speed = 500  # yes, speed
     hui = 57 * 2  # Hue increment
     hue, sat, val, aaa = 0, 100, 100, 0
     sd = 0.005  # frequency spread (from integer)

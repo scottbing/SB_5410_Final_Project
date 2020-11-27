@@ -1,0 +1,3 @@
+#!/Users/scottbing/Documents/NMHU/Fall2020/BSSD5410Algorithms/Final/fractals/venv/bin/python
+from numba.pycc import main
+main()

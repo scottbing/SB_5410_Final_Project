@@ -19,11 +19,19 @@ from SlideShow import *
 from AnimateSierpinski import *
 from AnimateDragon import *
 from HilbertCurve import *
+from MandelRayBulb import *
+from SurfaceTriangulation import *
 import tkinter.font as font
 from turtle import *
 from random import randint
 from colorsys import hsv_to_rgb
 import numpy as np
+import pandas as pd
+import plotly.graph_objs as go
+from numba import jit
+import plotly
+from plotly.offline import init_notebook_mode
+#init_notebook_mode(connected=True)
 import colorsys
 import os
 
@@ -47,6 +55,13 @@ class Application(Frame):
 
         # used when calling slideshow
         # pygame.init()
+
+        # read mandelbrot colour schemes file
+        # Read values from file
+        self.schemes = []
+        with open('schemes/schemes.txt') as inFile:
+            self.schemes = [line.strip() for line in inFile]
+            #self.schemes = [line for line in inFile]
 
         # reverse_btn = Button(self)
         self.color_to_change = None
@@ -96,6 +111,12 @@ class Application(Frame):
 
     # end application constructor
 
+    def chomp(self, x):
+        """Remove '\n' newline from string"""
+        if x.endswith("\r\n"): return x[:-2]
+        if x.endswith("\n") or x.endswith("\r"): return x[:-1]
+        return x
+
     def openFile(self):
         """Process the Open File Menu"""
         self.fileName = askopenfilename(parent=self, initialdir="C:/", title='Choose an image.')
@@ -130,6 +151,9 @@ class Application(Frame):
         self.color1_to_change = None
         self.color2_to_change = None
         self.color3_to_change = None
+
+        # reset drop down box
+        self.theme.set('Accent_r')
 
         # # clear text boxes
         # self.height_ent.delete(0, 'end')
@@ -224,7 +248,7 @@ class Application(Frame):
         animFont = font.Font(size=21)
 
         Label(self,
-              text="Static:",
+              text="Static Fractals:",
               font=animFont
               ).grid(row=2, column=0, columnspan=2, sticky=W)
 
@@ -245,19 +269,7 @@ class Application(Frame):
                                    textvariable=self.theme)
 
         # Adding combobox drop down list
-        self.themes['values'] = ('ocean',
-                                 'twilight',
-                                 'inferno',
-                                 'Purples_r',
-                                 'prism',
-                                 'rainbow',
-                                 'autumn',
-                                 'cubehelix',
-                                 'copper_r',
-                                 'gist_earth',
-                                 'nipy_spectral',
-                                 'Pastell')
-
+        self.themes['values'] = tuple(self.schemes)
         self.themes.grid(row=3, column=1, padx=57, sticky=W)
 
         # Shows ocean as a default value
@@ -380,7 +392,7 @@ class Application(Frame):
         animFont = font.Font(size=21)
 
         Label(self,
-              text="Animated:",
+              text="Animated Fractals:",
               font=animFont
               ).grid(row=11, column=0, columnspan=2, sticky=W)
 
@@ -521,10 +533,36 @@ class Application(Frame):
                                        highlightbackground='#3E4149',
                                        ).grid(row=19, column=0, sticky=W, padx=20, pady=5)
 
+        ttk.Separator(self,
+                      orient=HORIZONTAL
+                      ).grid(row=20, column=0, columnspan=2, sticky=NSEW, pady=5, padx=5)
+
+        animFont = font.Font(weight="bold")
+        animFont = font.Font(size=21)
+
+        Label(self,
+              text="3D Fractals:",
+              font=animFont
+              ).grid(row=21, column=0, columnspan=2, sticky=W)
+
+        # create a the animate mandel ray bulb button
+        self.mandelraybulb_btn = Button(self,
+                                     text="Mandel Ray Bulb",
+                                     command=self.anim_mandelraybulb,
+                                     highlightbackground='#3E4149',
+                                     ).grid(row=22, column=0, sticky=W, padx=20, pady=5)
+
+        # create a the animate surface triangualtion button
+        self.surfacetriangulation_btn = Button(self,
+                                        text="Surface Triangualtion",
+                                        command=self.anim_surfacetriangulation,
+                                        highlightbackground='#3E4149',
+                                        ).grid(row=23, column=0, sticky=W, padx=20, pady=5)
+
         # create a filler
         Label(self,
               text=" "
-              ).grid(row=20, column=0, sticky=W)
+              ).grid(row=24, column=0, sticky=W)
 
         self.errFont = font.Font(weight="bold")
         self.errFont = font.Font(size=20)
@@ -534,7 +572,7 @@ class Application(Frame):
               foreground="red",
               font=self.errFont,
               wraplength=200
-              ).grid(row=21, column=0, sticky=NSEW, pady=4)
+              ).grid(row=25, column=0, sticky=NSEW, pady=4)
 
     # end def create_widgets(self):
 
@@ -799,6 +837,101 @@ class Application(Frame):
 
     # end def processColorize(self):
 
+    def anim_surfacetriangulation(self):
+        xs = []
+        ys = []
+        zs = []
+        data_test = []
+        for angle in [[3, 0, 0], [0, 3, 0], [0, 0, 3], [-3, 0, 0], [0, -3, 0], [0, 0, -3]]:
+            xs_, ys_, zs_ = plot_mandelbulb(degree=9, height=100, width=100, observer_position=np.array(angle))
+            xs.extend(xs_)
+            ys.extend(ys_)
+            zs.extend(zs_)
+
+        # if angle[0] == 0 and angle[1] == 0 and angle[2] != 0:
+        #     points2D = np.vstack([xs_, ys_]).T
+        #     tri = Delaunay(points2D)
+        #     simplices = tri.simplices
+        #     data_test.extend(FF.create_trisurf(x=xs_,
+        #                                        y=ys_,
+        #                                        z=zs_,
+        #                                        plot_edges=False,
+        #                                        colormap=colormap,
+        #                                        simplices=simplices,
+        #                                        title="Isosurface")['data'])
+        # if angle[0] == 0 and angle[1] != 0 and angle[2] == 0:
+        #     points2D = np.vstack([xs_, zs_]).T
+        #     tri = Delaunay(points2D)
+        #     simplices = tri.simplices
+        #     data_test.extend(FF.create_trisurf(x=xs_,
+        #                                        y=ys_,
+        #                                        z=zs_,
+        #                                        plot_edges=False,
+        #                                        colormap=colormap,
+        #                                        simplices=simplices,
+        #                                        title="Isosurface")['data'])
+        # if angle[0] != 0 and angle[1] == 0 and angle[2] == 0:
+        #     points2D = np.vstack([ys_, zs_]).T
+        #     tri = Delaunay(points2D)
+        #     simplices = tri.simplices
+        #     data_test.extend(FF.create_trisurf(x=xs_,
+        #                                        y=ys_,
+        #                                        z=zs_,
+        #                                        plot_edges=False,
+        #                                        colormap=colormap,
+        #                                        simplices=simplices,
+        #                                        title="Isosurface")['data'])
+
+        pd.set_option('display.max_rows', None)
+        df = pd.DataFrame({'X': xs, 'Y': ys, 'Z': zs}).sort_values(by=['Z'])
+
+        pts = df.values
+        print(np.shape(pts))
+
+        xs = np.array(xs)
+        ys = np.array(ys)
+        zs = np.array(zs)
+
+        # https://plot.ly/python/reference/#mesh3d
+        mesh = go.Mesh3d(x=xs,
+                         y=ys,
+                         z=zs,
+                         alphahull=25,
+                         opacity=0.9,
+                         colorscale='Viridis'
+                         # color='#00FFFF'
+                         )
+
+        data = [mesh]
+        fig = go.Figure(data=data)
+        plot(fig, filename='Alphahull.html', auto_open=True)
+
+        self.clearScreen()
+
+    # end def animSurfaceTriangulation():
+
+    def anim_mandelraybulb(self):
+
+        np.array(plot_mandelbulb())
+
+        plotly_trace = go.Heatmap(z=np.array(plot_mandelbulb()))
+
+        data = [plotly_trace]
+
+        layout = go.Layout(
+            title='Mandelbrot Plot',
+            width=1250,
+            height=1250,
+        )
+
+        fig = go.Figure(data=data, layout=layout)
+
+        plotly.offline.plot(fig, filename="MandelBulb.html")
+
+        self.clearScreen()
+
+    #end anim_mandelraybulb(self):
+
     def anim_random(self):
         #   Random Walk, in glorious Technicolour
         #   https://docs.python.org/3/library/turtle.html
@@ -825,13 +958,23 @@ class Application(Frame):
                 backward(step)  # step back
         done()
 
+        self.clearScreen()
+
+    #end anim_random(self):
+
     def anim_color_harmon(self):
         """Call the harmongraph script"""
         color_harmon()
+        self.clearScreen()
+
+    #end anim_color_harmon(self):
 
     def anim_harmon(self):
         """Call the harmongraph script"""
         harmon()
+        self.clearScreen()
+
+    #end anim_harmon(self):
 
     def anim_slideshow(self):
         # taken from: https://github.com/Tikolu/fractal.py
@@ -864,6 +1007,9 @@ class Application(Frame):
         tikolu(h,
                w,
                um)
+
+        self.clearScreen()
+
     #end def anim_slideshow(self):
 
     def anim_hilbert(self):
@@ -884,7 +1030,10 @@ class Application(Frame):
 
         hilbert_curve(iterations, axiom, rules, angle, aspect_ratio=1, width=width,
                       offset_angle=angle_offset, y_offset=y_offset, color=self.color_to_change)
-        # end def anim_hilbert(self):
+
+        self.clearScreen()
+
+    # end def anim_hilbert(self):
 
     def anim_dragon(self):
         # Global parameters
@@ -907,6 +1056,10 @@ class Application(Frame):
         animate_dragon(iterations, axiom, rules, angle, correction_angle=correction_angle,
                        offset_angle=offset_angle, width=width, height=width, color=self.color_to_change)
 
+        self.clearScreen()
+
+    #end def anim_dragon(self):
+
     def anim_sierpinski(self):
         # Global parameters
 
@@ -922,6 +1075,8 @@ class Application(Frame):
             self.color_to_change = 'navy'
 
         animate_sierpinski(iterations, axiom, rules, angle, aspect_ratio=1, width=width, color=self.color_to_change)
+
+        self.clearScreen()
 
     # end anim_sierpinski(self):
 
